@@ -1,4 +1,6 @@
 *~
 
+*.pyc
+
 credentials.json
 secrets.py
