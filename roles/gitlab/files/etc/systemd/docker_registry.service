@@ -1,0 +1,8 @@
+[Unit]
+Description=Docker Registry
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker run -d -p 6000:5000 -e REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io --restart always --name registry registry:2
+ExecStop=/usr/bin/docker rm -f registry
+RemainAfterExit=True

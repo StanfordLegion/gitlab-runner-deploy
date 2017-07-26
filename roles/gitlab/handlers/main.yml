@@ -1,0 +1,9 @@
+---
+- name: reload systemd
+  command: /bin/systemctl daemon-reload
+
+- name: start docker_registry.service
+  command: /bin/systemctl start docker_registry.service
+
+- name: enable docker_registry.service
+  command: /bin/systemctl enable docker_registry.service

@@ -2,6 +2,7 @@
 zone: us-west1-b
 network_name: gitlab
 instance_name: gitlab-master
+group_tag: gitlab
 instance_tag: gitlab-master
 machine_type: n1-standard-1
 image: ubuntu-1604

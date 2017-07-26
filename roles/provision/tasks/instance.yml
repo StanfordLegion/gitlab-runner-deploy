@@ -3,6 +3,7 @@
   gce:
     instance_names: "{{instance_name}}"
     tags:
+      - "{{group_tag}}"
       - "{{instance_tag}}"
     zone: "{{zone}}"
     machine_type: "{{machine_type}}"

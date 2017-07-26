@@ -1,0 +1,12 @@
+---
+- name: configure service for Docker Registry
+  copy:
+    src: etc/systemd/docker_registry.service
+    dest: /etc/systemd/system/docker_registry.service
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - reload systemd
+    - start docker_registry.service
+    - enable docker_registry.service
