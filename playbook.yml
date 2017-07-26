@@ -8,3 +8,13 @@
   vars:
     user: "{{ lookup('pipe', 'whoami') }}"
     ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: install, configure and deploy GitLab Runner
+  hosts: tag_gitlab-master
+  remote_user: "{{user}}"
+  become: True
+  roles:
+    - gitlab
+  vars:
+    user: "{{ lookup('pipe', 'whoami') }}"
+    ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

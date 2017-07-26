@@ -11,3 +11,13 @@
     disk_size: "{{disk_size}}"
     metadata: '{"ssh-keys": "{{user}}:{{ssh_key}}"}'
     state: present
+  register: gce
+
+- name: wait for SSH on instances
+  wait_for:
+    host: "{{item.public_ip}}"
+    port: 22
+    delay: 5
+    timeout: 300
+    state: started
+  with_items: "{{gce.instance_data}}"
