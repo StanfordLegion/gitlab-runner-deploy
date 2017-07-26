@@ -1,0 +1,10 @@
+---
+- name: provision Google Cloud instances
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  roles:
+    - provision
+  vars:
+    user: "{{ lookup('pipe', 'whoami') }}"
+    ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

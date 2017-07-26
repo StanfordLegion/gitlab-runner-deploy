@@ -1,0 +1,22 @@
+---
+- name: configure network
+  gce_net:
+    name: "{{network_name}}"
+    mode: auto
+    state: present
+
+- name: configure firewall rules for ICMP
+  gce_net:
+    name: "{{network_name}}"
+    fwname: "allow-icmp"
+    allowed: "icmp"
+    src_range: ["0.0.0.0/0"]
+    state: present
+
+- name: configure firewall rules for SSH
+  gce_net:
+    name: "{{network_name}}"
+    fwname: "allow-ssh"
+    allowed: "tcp:22"
+    src_range: ["0.0.0.0/0"]
+    state: present

@@ -1,0 +1,8 @@
+---
+zone: us-west1-b
+network_name: gitlab
+instance_name: gitlab-master
+instance_tag: gitlab-master
+machine_type: n1-standard-1
+image: ubuntu-1604
+disk_size: 12 # GB
