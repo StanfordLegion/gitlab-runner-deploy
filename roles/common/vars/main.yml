@@ -1,0 +1,17 @@
+---
+zone: us-west1-b
+network_name: gitlab
+group_tag: gitlab
+instance_name_master: gitlab-master
+instance_name_worker: gitlab-woker
+instance_tag_master: gitlab-master
+instance_tag_worker: gitlab-master
+machine_type_master: n1-standard-1
+machine_type_worker: n1-standard-1
+image_master: ubuntu-1604
+image_worker: https://www.googleapis.com/compute/v1/projects/coreos-cloud/global/images/family/coreos-stable
+disk_size_master: 12 # GB
+disk_size_worker: 12 # GB
+idle_nodes: 0
+idle_time: 10
+max_builds: 1

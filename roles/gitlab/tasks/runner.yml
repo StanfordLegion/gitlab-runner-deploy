@@ -1,0 +1,17 @@
+---
+- name: register GitLab Runner
+  command: |
+    gitlab-runner register \
+      --non-interactive \
+      --url "https://gitlab.com/" \
+      --registration-token {{ lookup('env', 'GITLAB_RUNNER_REGISTRATION_TOKEN') }} \
+      --tag-list compute,linux,gce \
+      --name gce-autoscale-test3 \
+      --executor docker+machine \
+      --docker-image ubuntu:16.04 \
+      --machine-idle-nodes {{idle_nodes}} \
+      --machine-idle-time {{idle_time}} \
+      --machine-max-builds {{max_builds}} \
+      --machine-machine-driver google \
+      --machine-machine-options "--google-project {{ lookup('env', 'GCE_PROJECT') }} --google-zone {{zone}} --google-machine-type {{machine_type_worker}} --google-machine-image {{image_worker}} --google-username core --google-disk-size {{disk_size_worker}} --google-network {{network_name}} --google-tags {{group_tag}},{{instance_tag_worker}} --google-use-internal-ip-only" \
+      --machine-machine-name "{{instance_name_worker}}-%s"

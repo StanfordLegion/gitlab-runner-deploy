@@ -1,15 +1,15 @@
 ---
 - name: provision instances
   gce:
-    instance_names: "{{instance_name}}"
+    instance_names: "{{instance_name_master}}"
     tags:
       - "{{group_tag}}"
-      - "{{instance_tag}}"
+      - "{{instance_tag_master}}"
     zone: "{{zone}}"
-    machine_type: "{{machine_type}}"
-    image: "{{image}}"
+    machine_type: "{{machine_type_master}}"
+    image: "{{image_master}}"
     network: "{{network_name}}"
-    disk_size: "{{disk_size}}"
+    disk_size: "{{disk_size_master}}"
     metadata: '{"ssh-keys": "{{user}}:{{ssh_key}}"}'
     state: present
   register: gce

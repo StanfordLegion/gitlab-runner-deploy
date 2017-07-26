@@ -2,7 +2,7 @@
 
 ```
 pip install -r requirements.txt
-export PYTHONPATH=$PWD # for secrets.py
+source secrets.sh
 ansible-playbook -i inventory playbook.yml
 ```
 
