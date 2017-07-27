@@ -5,4 +5,5 @@
 *.retry
 
 credentials.json
+secrets.py
 secrets.sh
