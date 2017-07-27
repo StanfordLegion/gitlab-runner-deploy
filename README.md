@@ -18,11 +18,15 @@ ansible-playbook -i inventory playbook.yml --tags deploy
 
 # Refresh the Dynamic Inventory Cache
 
+Run this command if the deploy step fails with a message that there
+are no hosts.
+
 ```
 ./inventory/gce.py --refresh-cache
 ```
 
 # Change Service Accounts
 
-Remember to remove any `~/.google_libcloud_auth.*` files or else
-you'll keep using the old credentials.
+If you change service accounts, remember to remove any
+`~/.google_libcloud_auth.*` files or else you'll keep using the old
+credentials.
