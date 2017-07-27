@@ -32,3 +32,11 @@ are no hosts.
 If you change service accounts, remember to remove any
 `~/.google_libcloud_auth.*` files or else you'll keep using the old
 credentials.
+
+# TODO
+
+  * Figure out a way of automatically retrieving SSH host keys. One
+    option inspired by [1][] would be to use the gcloud CLI to SSH to
+    the node and exfiltrate the keys.
+
+[1]: https://winscp.net/eng/docs/guide_google_compute_engine
