@@ -1,17 +1,41 @@
 ---
+# FIXME: There doesn't seem to be a good way to upgrade a runner
+# in-place, so just remove and re-add it each time. At least this way
+# we can upgrade the configuration automatically.
+- name: unregister GitLab Runner
+  command: /usr/bin/gitlab-runner unregister --all-runners
+
+- name: configure GitLab Runner
+  template:
+    src: etc/gitlab-runner/config.toml
+    dest: /etc/gitlab-runner/config.toml
+    owner: root
+    group: root
+    mode: 0600
+
 - name: register GitLab Runner
   command: |
-    gitlab-runner register \
+    /usr/bin/gitlab-runner register \
       --non-interactive \
       --url "https://gitlab.com/" \
       --registration-token {{ lookup('env', 'GITLAB_RUNNER_REGISTRATION_TOKEN') }} \
       --tag-list compute,linux,gce \
-      --name gce-autoscale-test3 \
+      --name {{runner_name}} \
+      --limit {{runner_limit}} \
       --executor docker+machine \
-      --docker-image ubuntu:16.04 \
-      --machine-idle-nodes {{idle_nodes}} \
-      --machine-idle-time {{idle_time}} \
-      --machine-max-builds {{max_builds}} \
+      --docker-image ubuntu:14.04 \
+      --machine-idle-nodes {{runner_idle_nodes}} \
+      --machine-idle-time {{runner_idle_time}} \
+      --machine-max-builds {{runner_max_builds}} \
       --machine-machine-driver google \
-      --machine-machine-options "--google-project {{ lookup('env', 'GCE_PROJECT') }} --google-zone {{zone}} --google-machine-type {{machine_type_worker}} --google-machine-image {{image_worker}} --google-username core --google-disk-size {{disk_size_worker}} --google-network {{network_name}} --google-tags {{group_tag}},{{instance_tag_worker}} --google-use-internal-ip-only" \
+      --machine-machine-options "engine-registry-mirror=http://{{gce_private_ip}}:6000" \
+      --machine-machine-options "google-project={{ lookup('env', 'GCE_PROJECT') }}" \
+      --machine-machine-options "google-zone={{zone}}" \
+      --machine-machine-options "google-machine-type={{machine_type_worker}}" \
+      --machine-machine-options "google-machine-image={{image_worker}}" \
+      --machine-machine-options "google-username=core" \
+      --machine-machine-options "google-disk-size={{disk_size_worker}}" \
+      --machine-machine-options "google-network={{network_name}}" \
+      --machine-machine-options "google-tags={{group_tag}},{{instance_tag_worker}}" \
+      --machine-machine-options "google-use-internal-ip-only" \
       --machine-machine-name "{{instance_name_worker}}-%s"

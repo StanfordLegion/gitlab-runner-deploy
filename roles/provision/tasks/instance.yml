@@ -11,6 +11,9 @@
     network: "{{network_name}}"
     disk_size: "{{disk_size_master}}"
     metadata: '{"ssh-keys": "{{user}}:{{ssh_key}}"}'
+    service_account_permissions:
+      - compute-rw
+      - storage-ro
     state: present
   register: gce
 

@@ -20,3 +20,11 @@
     allowed: "tcp:22"
     src_range: ["0.0.0.0/0"]
     state: present
+
+- name: configure firewall rules for Docker Registry
+  gce_net:
+    name: "{{network_name}}"
+    fwname: "allow-docker-registry"
+    allowed: "tcp:6000"
+    src_range: ["10.128.0.0/9"]
+    state: present
