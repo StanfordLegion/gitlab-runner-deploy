@@ -2,7 +2,7 @@
 
 ```
 pip install -r requirements.txt
-source secrets.sh
+source secrets.sh # see default.secrets.sh
 ansible-playbook -i inventory playbook.yml
 ```
 
