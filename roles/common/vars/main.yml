@@ -16,7 +16,7 @@ disk_size_worker: 16 # GB
 
 # GitLab Runner configuration
 runner_name: gce-autoscale-test4
-runner_limit: 24 # maximum number of concurrent jobs to process
+runner_limit: 48 # maximum number of concurrent jobs to process
 runner_idle_nodes: 0 # number of nodes to keep idle
 runner_idle_time: 600 # (seconds) time machine is idle before being removed
 runner_max_builds: 20 # number of times machine is reused before being replaced
