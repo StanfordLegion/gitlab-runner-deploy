@@ -12,7 +12,7 @@ machine_type_worker: n1-standard-8
 image_master: ubuntu-1604
 image_worker: https://www.googleapis.com/compute/v1/projects/coreos-cloud/global/images/family/coreos-stable
 disk_size_master: 64 # GB
-disk_size_worker: 16 # GB
+disk_size_worker: 32 # GB
 
 # GitLab Runner configuration
 runner_name: gce-autoscale-test5
