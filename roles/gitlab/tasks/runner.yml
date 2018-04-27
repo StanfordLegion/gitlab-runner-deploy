@@ -56,3 +56,5 @@
       --machine-machine-options "google-network={{network_name}}" \
       --machine-machine-options "google-tags={{group_tag}},{{instance_tag_worker}}" \
       --machine-machine-name "{{instance_name_worker}}-%s"
+  become: yes
+  become_method: sudo
