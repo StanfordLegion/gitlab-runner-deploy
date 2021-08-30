@@ -1,30 +1,33 @@
 ---
 - name: configure network
-  gce_net:
+  gcp_compute_network:
     name: "{{network_name}}"
-    mode: auto
+    auto_create_subnetworks: 'true'
     state: present
 
-- name: configure firewall rules for ICMP
-  gce_net:
-    name: "{{network_name}}"
-    fwname: "allow-icmp"
-    allowed: "icmp"
-    src_range: ["0.0.0.0/0"]
-    state: present
-
-- name: configure firewall rules for SSH
-  gce_net:
-    name: "{{network_name}}"
-    fwname: "allow-ssh"
-    allowed: "tcp:22"
-    src_range: ["0.0.0.0/0"]
+- name: configure firewall rules
+  gcp_compute_firewall:
+    name: "{{network_name}}-firewall"
+    network:
+      self_link: "{{network_name}}"
+    allowed:
+      - ip_protocol: icmp
+      - ip_protocol: tcp
+        ports:
+          - "22"
+    source_ranges:
+      - "0.0.0.0/0"
     state: present
 
 - name: configure firewall rules for Docker Registry
-  gce_net:
-    name: "{{network_name}}"
-    fwname: "allow-docker-registry"
-    allowed: "tcp:6000"
-    src_range: ["10.128.0.0/9"]
+  gcp_compute_firewall:
+    name: "{{network_name}}-firewall-docker"
+    network:
+      self_link: "{{network_name}}"
+    allowed:
+      - ip_protocol: tcp
+        ports:
+          - "6000"
+    source_ranges:
+      - "10.128.0.0/9"
     state: present

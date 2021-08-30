@@ -46,7 +46,7 @@
       --machine-idle-time {{runner_idle_time}} \
       --machine-max-builds {{runner_max_builds}} \
       --machine-machine-driver google \
-      --machine-machine-options "engine-registry-mirror=http://{{gce_private_ip}}:6000" \
+      --machine-machine-options "engine-registry-mirror=http://{{hostvars[inventory_hostname]['networkInterfaces'][0]['networkIP']}}:6000" \
       --machine-machine-options "google-project={{ lookup('env', 'GCE_PROJECT') }}" \
       --machine-machine-options "google-zone={{zone}}" \
       --machine-machine-options "google-machine-type={{machine_type_worker}}" \

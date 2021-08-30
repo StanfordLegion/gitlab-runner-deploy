@@ -12,7 +12,7 @@
     - provision
 
 - name: deploy GitLab Runner
-  hosts: "tag_{{instance_tag_master}}"
+  hosts: all
   remote_user: "{{user}}"
   become: True
   roles:

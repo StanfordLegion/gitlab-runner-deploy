@@ -4,5 +4,9 @@
 *.pyc
 *.retry
 
+/conda
+/env.sh
+
 credentials.json
 secrets.sh
+inventory.gcp.yml

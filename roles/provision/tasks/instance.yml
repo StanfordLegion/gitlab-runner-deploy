@@ -1,27 +1,38 @@
 ---
+- name: provision static IP address
+  gcp_compute_address:
+    name: "{{instance_name_master}}-address"
+    region: "{{region}}"
+    state: present
+  register: address
+
 - name: provision instances
-  gce:
-    instance_names: "{{instance_name_master}}"
-    tags:
-      - "{{group_tag}}"
-      - "{{instance_tag_master}}"
+  gcp_compute_instance:
+    name: "{{instance_name_master}}"
     zone: "{{zone}}"
     machine_type: "{{machine_type_master}}"
-    image: "{{image_master}}"
-    network: "{{network_name}}"
-    disk_size: "{{disk_size_master}}"
+    network_interfaces:
+      - network:
+          self_link: "{{network_name}}"
+        access_configs:
+          - name: "External NAT"
+            nat_ip: "{{address}}"
+            type: "ONE_TO_ONE_NAT"
+    disks:
+      - auto_delete: True
+        boot: True
+        initialize_params:
+          disk_size_gb: "{{disk_size_master}}"
+          source_image: "{{image_master}}"
     metadata: '{"ssh-keys": "{{user}}:{{ssh_key}}"}'
-    service_account_permissions:
-      - compute-rw
-      - storage-ro
+    service_accounts:
+      - email: "{{ lookup('env', 'INSTANCE_GCP_SERVICE_ACCOUNT_EMAIL') }}"
     state: present
-  register: gce
+  register: instance
 
 - name: wait for SSH on instances
   wait_for:
-    host: "{{item.public_ip}}"
+    host: "{{address.address}}"
     port: 22
     delay: 5
     timeout: 300
-    state: started
-  with_items: "{{gce.instance_data}}"

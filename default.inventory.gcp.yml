@@ -1,0 +1,5 @@
+plugin: gcp_compute
+projects:
+  - PROJECT
+auth_kind: serviceaccount
+service_account_file: credentials.json

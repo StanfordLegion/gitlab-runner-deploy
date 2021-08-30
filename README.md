@@ -1,11 +1,41 @@
-# Running
+# First-Time Setup
 
-After cloning this repo, run:
+ 1. Go to Google Cloud console and search for "Service Accounts"
+ 2. Click "Create Service Account"
+ 3. Enter:
+      * Name: legion
+      * ID: legion (accept the default value)
+      * Description: administer gitlab runner
+ 4. Click "Create and Continue"
+ 5. Enter:
+      * Role: Editor
+ 6. Click "Continue"
+ 7. Click "Done" (skip the "Grant users access ..." dialogue)
+ 8. Under "Actions" click the vertical dots, then "Manage Keys"
+ 9. Click "Add Key", then "Create new key"
+10. Enter:
+      * Key type: JSON
+11. Click "Create"
+12. Store the downloaded key securely on the local machine
+13. `cp default.secrets.sh secrets.sh`
+14. Update `secrets.sh` with the resulting service account information
+
+# Installation
+
+Note: This creates a Conda installation and installs Ansible. (This
+happens to be the most reliable way to get a version-pinned Ansible,
+which is necessary to make sure everything is reproducible.)
 
 ```
-pip install -r requirements.txt
+./install.sh
+```
+
+# Running
+
+```
+source env.sh
 source secrets.sh # see default.secrets.sh
-ansible-playbook -i inventory playbook.yml
+ansible-playbook playbook.yml
 ```
 
 # Execute Playbook in Steps
@@ -14,24 +44,9 @@ This is mainly useful as a time saving measure if you want to
 e.g. deploy repeatedly without reprovisioning.
 
 ```
-ansible-playbook -i inventory playbook.yml --tags provision
-ansible-playbook -i inventory playbook.yml --tags deploy
+ansible-playbook playbook.yml --tags provision
+ansible-playbook playbook.yml --tags deploy
 ```
-
-# Refresh the Dynamic Inventory Cache
-
-Run this command if the deploy step fails with a message that there
-are no hosts.
-
-```
-./inventory/gce.py --refresh-cache
-```
-
-# Change Service Accounts
-
-If you change service accounts, remember to remove any
-`~/.google_libcloud_auth.*` files or else you'll keep using the old
-credentials.
 
 # TODO
 

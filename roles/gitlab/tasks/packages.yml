@@ -31,7 +31,7 @@
 
 - name: install Docker Machine
   get_url:
-    url: https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-Linux-x86_64
+    url: https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-Linux-x86_64
     dest: /usr/local/bin/docker-machine
     owner: root
     group: root
