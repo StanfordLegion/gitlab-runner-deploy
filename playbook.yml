@@ -12,7 +12,7 @@
     - provision
 
 - name: deploy GitLab Runner
-  hosts: all
+  hosts: "label_master_{{ instance_tag_master | replace('-', '_') }}"
   remote_user: "{{user}}"
   become: True
   roles:

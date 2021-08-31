@@ -3,3 +3,8 @@ projects:
   - PROJECT
 auth_kind: serviceaccount
 service_account_file: credentials.json
+keyed_groups:
+  - key: labels
+    prefix: label
+  - key: zone
+    prefix: zone

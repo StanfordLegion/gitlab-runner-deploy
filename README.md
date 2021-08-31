@@ -17,8 +17,8 @@
       * Key type: JSON
 11. Click "Create"
 12. Store the downloaded key securely on the local machine
-13. `cp default.secrets.sh secrets.sh`
-14. Update `secrets.sh` with the resulting service account information
+13. `cp default.secrets.sh secrets.sh` and update `secrets.sh`
+14. `cp default.inventory.gcp.yml inventory.gcp.yml` and update `inventory.gcp.yml`
 
 # Installation
 
@@ -34,7 +34,7 @@ which is necessary to make sure everything is reproducible.)
 
 ```
 source env.sh
-source secrets.sh # see default.secrets.sh
+source secrets.sh
 ansible-playbook playbook.yml
 ```
 

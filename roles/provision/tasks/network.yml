@@ -4,12 +4,12 @@
     name: "{{network_name}}"
     auto_create_subnetworks: 'true'
     state: present
+  register: network
 
-- name: configure firewall rules
+- name: configure firewall rules for external traffic
   gcp_compute_firewall:
-    name: "{{network_name}}-firewall"
-    network:
-      self_link: "{{network_name}}"
+    name: "{{network_name}}-firewall-external"
+    network: "{{network}}"
     allowed:
       - ip_protocol: icmp
       - ip_protocol: tcp
@@ -19,15 +19,18 @@
       - "0.0.0.0/0"
     state: present
 
-- name: configure firewall rules for Docker Registry
+- name: configure firewall rules for internal traffic
   gcp_compute_firewall:
-    name: "{{network_name}}-firewall-docker"
-    network:
-      self_link: "{{network_name}}"
+    name: "{{network_name}}-firewall-internal"
+    network: "{{network}}"
     allowed:
+      - ip_protocol: icmp
       - ip_protocol: tcp
         ports:
-          - "6000"
+          - "0-65535"
+      - ip_protocol: udp
+        ports:
+          - "0-65535"
     source_ranges:
       - "10.128.0.0/9"
     state: present

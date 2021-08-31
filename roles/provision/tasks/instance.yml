@@ -12,8 +12,7 @@
     zone: "{{zone}}"
     machine_type: "{{machine_type_master}}"
     network_interfaces:
-      - network:
-          self_link: "{{network_name}}"
+      - network: "{{network}}"
         access_configs:
           - name: "External NAT"
             nat_ip: "{{address}}"
@@ -25,6 +24,13 @@
           disk_size_gb: "{{disk_size_master}}"
           source_image: "{{image_master}}"
     metadata: '{"ssh-keys": "{{user}}:{{ssh_key}}"}'
+    tags:
+      items:
+        - "{{group_tag}}"
+        - "{{instance_tag_master}}"
+    labels:
+      group: "{{group_tag}}"
+      master: "{{instance_tag_master}}"
     service_accounts:
       - email: "{{ lookup('env', 'INSTANCE_GCP_SERVICE_ACCOUNT_EMAIL') }}"
         scopes:
