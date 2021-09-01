@@ -9,7 +9,7 @@
 # to clean up.
 
 # - name: stop GitLab Runner
-#   command: /usr/bin/killall -SIGQUIT gitlab-ci-multi-runner
+#   command: /usr/bin/killall -SIGQUIT gitlab-runner
 #   ignore_errors: yes # ignore when there aren't any processes
 
 # - name: wait for GitLab Runner to stop
