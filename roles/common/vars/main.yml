@@ -8,7 +8,7 @@ instance_name_master: gitlab-master-test12
 instance_name_worker: gitlab-woker-test12
 instance_tag_master: gitlab-master-test12
 instance_tag_worker: gitlab-worker-test12
-machine_type_master: n1-standard-1
+machine_type_master: e2-small
 machine_type_worker: n1-standard-8
 image_master: projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts
 image_worker: https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts
@@ -17,7 +17,7 @@ disk_size_worker: 32 # GB
 
 # GitLab Runner configuration
 runner_name: gce-autoscale-test12
-runner_limit: 1 # maximum number of concurrent jobs to process
+runner_limit: 20 # maximum number of concurrent jobs to process
 runner_idle_nodes: 0 # number of nodes to keep idle
 runner_idle_time: 120 # (seconds) time machine is idle before being removed
 runner_max_builds: 20 # number of times machine is reused before being replaced
